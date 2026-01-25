@@ -1,0 +1,19 @@
+3. Update filters component to have automatic filling based on state with map() instead of partial hard-coding
+4. Make nav icon appear based off of the divce rather than screen size
+5. Add on body click to close context menus like rating, search suggestions etc.
+7. Close mobile menu on navigation
+9. Fix nav menu for xl+ touchcreens so that users can open menu => detect device type and change nav menu view based on type rather than screen size.
+10. On the 'language and interface' on 'User settings' page fix a bug of dissynchronised states of website theme between the navbar icon of theme and select menu
+11. Fix flickering of tabs on re-render triggered by settings menu opening and closing in the UserSettings component 
+12. Make settings menu sticky on mobile on the user settings page
+13. Add description to achievements and create a proper table for them.
+14. Fix a bug where if you click several config toggles in a fast, chaotic order the toggle buttons become broken. 
+15. Fix a bug where nav bar opens up by itself (reason unknown as of now)
+16. Refactor global css styles. Leave only truly global styles and put component-specific ones encapsulated within component module scope.
+17. Fix issue with the search bar where if you click on a suggestion, it autofills the input and because of that (the onChange event) it triggers search once more and pops the suggestions menu.
+18. Fix as issue where suggestions are not added for wrong confirmed options in TestSession component, handleConfirmed function
+19. Make a proper logic for selecting achievements after the test and adding them to the user profile in TestResults, AchievementsSection component
+20. Add sorting and filtering ability to decks on Search component
+21. Properly implement features folder and offload the code from Pages to Features
+22. Properly update language level and XP in profile (currently can overflow and not reset).
+23. Make a function for each DB table that will return all the base data instead of static definition so that DB operation function can be at the top of a file

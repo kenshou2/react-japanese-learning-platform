@@ -1,0 +1,505 @@
+@import "tailwindcss";
+
+@theme {
+  --color-txt-primary: var(--txt-primary);
+  --color-txt-secondary: var(--txt-secondary);
+
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-soft: var(--bg-soft);
+
+  --color-btn-primary: var(--btn-primary);
+
+  --color-accent: var(--accent);
+  --color-golden: var(--golden);
+  --color-sakura: var(--sakura);
+  --color-sakura-light: var(--sakura-light);
+
+  --animate-float: float 8s linear infinite;  
+  --animate-float-small: float-small 8s linear infinite;  
+  --animate-notification-slide: notification-slide 2s forwards;  
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+.dark {
+  --txt-primary: #eaeaea;
+  --txt-secondary: #D0D0D0;
+
+  --bg-primary: #222222;
+  --bg-secondary: #2A2B2D;
+  --bg-soft: #E7E7E7;
+
+  --btn-primary: #DB4F54;
+
+  --accent: var(--btn-primary);
+  --golden: #F3C63F;
+  --sakura: #E97488;
+  --sakura-light: #F6C8D0;
+}
+
+.light {
+  --txt-primary: #171A1F;
+  --txt-secondary: #9095A1;
+
+  --bg-primary: #f0f0f0;
+  --bg-secondary: #e6e6e6;
+  --bg-soft: #E7E7E7;
+
+  --btn-primary: #E34B64;
+
+  --accent: var(--btn-primary);
+  --golden: #F3C63F;
+  --sakura: #E97488;
+  --sakura-light: #F6C8D0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--txt-primary);
+  background-color: var(--bg-primary);
+}
+
+/* to make footer stick to the bottom of the page regardless of content between header and footer */
+#root {
+  display: flex;
+  flex-direction: column;
+  padding-top: 80px;
+  min-height: 100vh;
+}
+
+main {
+  position: relative;
+  flex: 1;
+}
+/* Debugging layout */
+/* * {
+  outline: 1px solid red;
+  opacity: 100%;
+  visibility: visible;
+} */
+
+/* custom class to hide scrollbar without removing its functionality*/
+.scrollbar-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* custom tooltip */
+.tooltip {
+  position: absolute;
+  padding: 3px 6px;
+  border-radius: 6px;
+  font-size: 12px;
+  background-color: var(--bg-secondary);
+  color: var(--txt-primary);
+  white-space: nowrap;
+  z-index: 10;
+
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.group:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+.tooltip-top {
+  top: auto;
+  right: auto;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+.tooltip-right {
+  bottom: auto;
+  right: auto;
+  top: 50%;
+  left: calc(100% + 10px);
+  transform: translateY(-50%);
+}
+.tooltip-bottom {
+  bottom: auto;
+  right: auto;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+.tooltip-left {
+  bottom: auto;
+  left: auto;
+  top: 50%;
+  right: calc(100% + 10px);
+  transform: translateY(-50%);
+}
+
+/* native styles override for search inputs */
+input[type="search"] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+/* Custom checkbox design */
+input[type="checkbox"] {
+  appearance: none;
+  width: 14px;
+  height: 14px; 
+  margin-top: 3px;
+  border: 2px solid var(--color-neutral-400);
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+label:has(input[type="checkbox"]) {
+  cursor: pointer;
+  display: flex;
+  /* align-items: start; */
+  gap: 8px;
+}
+input[type="checkbox"]::after {
+  display: none;
+  content: '✓';
+  font-size: 11px;
+  color: white;
+  font-weight: 800;
+}
+input[type="checkbox"]:checked {
+  border: none;
+  background-color: var(--sakura);
+}
+input[type="checkbox"]:checked::after {
+  display: block;
+}
+
+/* Custom radio button design */
+input[type='radio'] {
+  position: relative;
+  appearance: none;
+  width: 16px;
+  aspect-ratio: 1/1;
+  margin-top: 2px;
+  border: 2px solid var(--color-neutral-400);
+  border-radius: 100px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+label:has(input[type="radio"]) {
+  cursor: pointer;
+  display: flex;
+  /* align-items: start; */
+  gap: 8px;
+}
+input[type="radio"]::after {
+  display: none;
+  position: absolute;
+  content: '';
+  inset: 2px;  
+  background-color: var(--sakura);
+  border-radius: 50%;
+}
+input[type="radio"]:not(:checked):hover::after,
+label:has(input[type="radio"]):has(input:not(:checked)):hover::after {
+  display: block;
+  background-color: var(--color-neutral-400);
+}
+input[type="radio"]:checked {
+  border-color: var(--sakura);
+}
+input[type="radio"]:checked::after {
+  display: block;
+}
+
+/* Custom double slider design */
+.slider {
+  position: relative;
+}
+
+.track, .range {
+  position: absolute;
+  border-radius: 4px;
+  height: 6px;
+}
+
+.track {
+  width: 100%;
+  z-index: 1;
+}
+
+.range {
+  z-index: 2;
+}
+
+.thumb,
+.thumb::-webkit-slider-thumb {
+  appearance: none;
+}
+.thumb {
+  pointer-events: none;
+  position: absolute;
+  height: 0;
+  outline: none;
+}
+.thumb-left {
+  z-index: 3;
+}
+.thumb-right {
+  z-index: 4;
+}
+.thumb::-webkit-slider-thumb {
+  background-color: #DB4F54;
+  border-radius: 50%;  
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  margin-top: 4.5px;
+  pointer-events: all;
+  position: relative;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes float {
+  0% {
+    transform: perspective(1000px) rotateY(0deg) ;
+  }
+  25% {
+    transform: perspective(1000px) rotateY(3deg) ;
+  }
+  75% {
+    transform: perspective(1000px) rotateY(-3deg) ;
+  }
+  100% {
+    transform: perspective(1000px) rotateY(0deg) ;
+  }
+}
+
+@keyframes float-small {
+  0% {
+    transform: perspective(1000px) rotateY(0deg) ;
+  }
+  25% {
+    transform: perspective(1000px) rotateY(-0.8deg) ;
+  }
+  75% {
+    transform: perspective(1000px) rotateY(0.8deg) ;
+  }
+  100% {
+    transform: perspective(1000px) rotateY(0deg) ;
+  }
+}
+
+.emergeLeft {
+  transform: translateX(-8px);
+  filter: blur(2px);
+  animation: emergeLeft;
+  animation-timeline: view(40% 20%);
+}
+.emergeRight {
+  transform: translateX(8px);
+  filter: blur(2px);
+  animation: emergeRight;
+  animation-timeline: view(40% 20%);
+}
+.highlight-step-dark {
+  box-shadow: 0px 0px 2px 1px var(--color-neutral-500);
+  color: var(--color-neutral-500);
+  border-color: var(--color-neutral-500);
+  animation: highlightStepDark;
+  animation-timeline: view(40% 20%);
+}
+.highlight-step-light {
+  box-shadow: 0px 0px 2px 1px var(--color-neutral-400);
+  color: var(--color-neutral-400);
+  border-color: var(--color-neutral-400);
+  animation: highlightStepLight;
+  animation-timeline: view(40% 20%);
+}
+@keyframes emergeLeft {
+  0% {
+    transform: translateX(-8px);
+    color: var(--neutral-500);
+    filter: blur(2px);
+  }
+  50% {
+    transform: translateX(0px);
+    color: var(--txt-primary);
+    filter: blur(0);
+  }
+  100% {
+    transform: translateX(-8px);
+    color: var(--neutral-500);
+    filter: blur(2px);
+  }
+}
+@keyframes emergeRight {
+  0% {
+    transform: translateX(8px);
+    color: var(--neutral-500);
+    filter: blur(2px);
+  }
+  50% {
+    transform: translateX(0px);
+    color: var(--txt-primary);
+    filter: blur(0);
+  }
+  100% {
+    transform: translateX(8px);
+    color: var(--neutral-500);
+    filter: blur(2px);
+  }
+}
+@keyframes highlightStepDark {
+  0% {
+    box-shadow: 0px 0px 2px 1px var(--color-neutral-500);
+    color: var(--color-neutral-500);
+    border-color: var(--color-neutral-500);
+  }
+  50% {
+    box-shadow: 0px 0px 2px 1px var(--sakura);
+    color: var(--sakura);
+    border-color: var(--sakura);
+  }
+  100% {
+    box-shadow: 0px 0px 2px 1px var(--color-neutral-500);
+    color: var(--color-neutral-500);
+    border-color: var(--color-neutral-500);
+  }
+}
+@keyframes highlightStepLight {
+  0% {
+    box-shadow: 0px 0px 2px 1px var(--color-neutral-400);
+    color: var(--color-neutral-400);
+    border-color: var(--color-neutral-400);
+  }
+  50% {
+    box-shadow: 0px 0px 2px 1px var(--sakura);
+    color: var(--sakura);
+    border-color: var(--sakura);
+  }
+  100% {
+    box-shadow: 0px 0px 2px 1px var(--color-neutral-400);
+    color: var(--color-neutral-400);
+    border-color: var(--color-neutral-400);
+  }
+}
+
+.loading {
+  background: linear-gradient(to right, var(--color-neutral-300) 35%, var(--color-neutral-400) 50%, var(--color-neutral-300) 65%);
+  background-size: 600% 100%;
+  animation: loading 3s linear infinite;
+}
+.dark .loading {
+  background: linear-gradient(to right, var(--bg-secondary) 35%, var(--color-neutral-500) 50%, var(--bg-secondary) 65%);
+  background-size: 600% 100%;
+  animation: loading 3s linear infinite;
+}
+@keyframes loading {
+  from {
+    background-position-x: right;
+  }
+  to {
+    background-position-x: left;
+  }
+}
+
+@keyframes notification-slide {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:hover {
+  -webkit-text-fill-color: var(--txt-primary) !important;
+  box-shadow: 0 0 0 1000px var(--bg-primary) inset !important;
+  background-clip: content-box !important;  
+}
+
+.dark .slider-peek-gradient {
+  background: linear-gradient(
+    to right,
+    rgba(34, 34, 34, 1) 2%,
+    rgba(34, 34, 34, 0) 5%,
+    rgba(34, 34, 34, 0) 95%,
+    rgba(34, 34, 34, 1) 98%
+  );
+}
+
+.light .slider-peek-gradient {
+  background: linear-gradient(
+    to right,
+    rgba(240, 240, 240, 1) 1%,
+    rgba(240, 240, 240, 0.5) 3%,
+    rgba(240, 240, 240, 0) 5%,
+    rgba(240, 240, 240, 0) 95%,
+    rgba(240, 240, 240, 0.5) 97%,
+    rgba(240, 240, 240, 1) 99%
+  );
+}
+
+@keyframes openSection {
+  from {
+    grid-template-rows: 0fr;
+  }
+  to {
+    grid-template-rows: 1fr;
+  }
+}
+@keyframes xpFadeIn {
+  from {
+    transform: translateX(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+@keyframes achievementFadeIn {
+  from {
+    opacity: 0;
+    scale: 0.5;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
