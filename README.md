@@ -1,45 +1,62 @@
 ## Japanese langauge learning platform
+### [Live Demo](https://kenshou2.github.io/react-japanese-learning-platform/)
+A large-scale frontend Japanese language learning application built with React and TypeScript, designed to simulate a real-world production environment with complex state management, routing, caching, and API interaction.
 
-A Japanese language learning web app built with React, Tailwind CSS, React Router and React Query. 
-Features 10+ responsive pages with dynamic routing, caching, state management, API requests, complete CRUD operations, fluid animations and more.
+<img width="343" height="188" alt="img" src="https://github.com/user-attachments/assets/f3dd0b86-f6ae-49db-96de-271111d2fc8d" />
+<img width="343" height="188" alt="img1" src="https://github.com/user-attachments/assets/07d8d407-a0b7-42e4-bdc4-e104cf044e13" />
+<img width="343" height="188" alt="img2" src="https://github.com/user-attachments/assets/32db051b-df7e-4040-9be8-39932203dfb9" />
+<img width="343" height="188" alt="img3" src="https://github.com/user-attachments/assets/58e58433-081d-4c56-aa16-dbae2441fbb7" />
+
 ## Technologies
-
 - React
 - TypeScript
 - Tailwind CSS
 - React Router
-- Tanstack Query
+- TanStack Query
 - Vite
+  
 ## Features
-1. Search, sort and filter courses and vocabulary decks; add them to a personal library
-2. Review course contents, which includes curriculum, pop-up lesson dictionary with audio, chat-bot menu and the course material itself. All progress is automatically saved
-3. Pass a course final test. Tests include multiple and single choice questions. They also include optional image and paragraph attachments. On wrong answer, an explanation appears on each wrong choice. At the end of the test, an interactive, gamified results page appears with dynamic, sequantial animations
-4. Start a spaced repetition session where users memorize the vocabulary from their vocabulary decks
-5. Search, filter and review articles
-6. Search a dictionary, which includes audio, example sentences and translations of words
-7. Change website theme (dark/light). The theme is decided automatically by default according to users' browser preferences
-8. Edit profile (name, about, studying goals)
-9. Edit settings (email, password, interface, payments, devices and more)
-* Note: the platform has a fully ready API architecture of services and queries for the future implementation of a complete cycle of content management (complete CRUD operations for courses, articles, vocabulary decks, dictionary entires and others)
+1. Search, filter, and sort courses and vocabulary decks into a personal library
+2. Course content viewer with automatic progress tracking, lesson dictionary and chat-bot assistant menu
+3. Interactive tests with multiple question types, explanations, and gamified results
+4. Spaced repetition (SRS) sessions for vocabulary review
+5. Articles and dictionary with audio, examples, and translations
+6. Editable user profile, settings, and automatic light/dark theme detection
+> Note: The platform includes a fully implemented API architecture (services + queries) designed for future CMS and admin integration.
 
-## The process
+## Architecture Overview
 
-I started working on the project by writing a product requirements document (features, pages). With that in hand I designed the pages in Figma according to the product requirements and product vision. 
+The project follows a **feature-based architecture** focused on scalability and maintainability.
 
-Once the planning and design steps were completed, I moved to the development process. I decided to use React, Typescript and Tailwind CSS as the core, with React Router and Tanstack Query as supplementary libraries. The desicion was driven because of the lightweght, yet powerful nature of React, TypeScript's strong typization of data and speed of styling thanks to Tailwind CSS. React Router and Tanstack Query were chosen as industry standards for the tasks of robust routing and querying.
+### Core structure
+- **fakeServer** — mock database and async API abstraction layer
+- **features** — domain-level logic with services and TanStack Query hooks
+- **pages** — page-level UI composition
+- **shared** — reusable UI components
 
-I decided to use a feature-based project architecture, as it is proven to be scalable and maintainable solution, as well as reduces the chance of code duplication. The project is separated into 4 main architectural clusters:
-- fakeServer: implements fake database layer and well as its async API abstraction layer over it
-- features: implemets the frontend reception point of API data; has services and TackStack Queries that use them. It also includes components folder that would incapsulate a singular representation of a feature, but is not utilized in the current version of the project (to be done in the future)
-- pages: bundles the UI of pages; separates into additional subcomponents if the page is large
-- shared: sources shared across the website UI components
-It also includes 4 supportive folders:
-- context: stores React context variables shared across the component tree
-- hooks: includes custom hooks (such as useMediaQuery, useDeviceType and others)
-- types: defines TypeScript types for type entities used in the project
-- utils: utility funcitons
+### Supporting layers
+- **context** — global state (user, notifications)
+- **hooks** — reusable custom hooks (media queries, device detection, gestures)
+- **types** — shared TypeScript types
+- **utils** — helper functions
 
-Once the technologies and architecture were in place, I started implementing each feature and page, one-by-one. During the process I faced challanges, but overcame them by time input, strategic narrowing of cause of issues and research. I also kept filling a TODO list, noting possible improvements and required fixes to features. 
+This structure minimizes code duplication and mirrors patterns used in production frontend applications.
 
-## What I learned
-to be done
+## What I Learned
+- Designing and implementing scalable, feature-based frontend architecture
+- Managing server state with TanStack Query (caching, error handling, background refetching)
+- Building a mock backend with separate database and async API layers
+- Advanced UI techniques, including 3D CSS transforms and complex animations
+
+## Future Improvements
+- Improve accessibility across the application
+- Optimize assets with responsive image loading strategies
+- Implement an admin dashboard for CMS and database management
+- Add authentication and authorization flows
+
+## Running the project
+In order to run the project yourself, follow these steps:
+1. Clone the repository to your machine
+2. Run `npm install` in the project directory - it will install required dependencies
+3. Run `npm run dev` to start local development server
+4. Visit `http://localhost:5173` or the address listed in the console
